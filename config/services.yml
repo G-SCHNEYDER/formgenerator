@@ -3,8 +3,8 @@ imports:
 
 services:
     # Form services
-    prestashop.module.demodoctrine.type.quote:
-        class: 'Module\DemoDoctrine\Form\QuoteType'
+    prestashop.module.FormGenerator.type.form:
+        class: 'Module\FormGenerator\Form\FormType'
         parent: 'form.type.translatable.aware'
         public: true
         arguments:
@@ -12,68 +12,68 @@ services:
         tags:
             - { name: form.type }
 
-    prestashop.module.demodoctrine.form.identifiable_object.data_provider.quote_form_data_provider:
-        class: 'Module\DemoDoctrine\Form\QuoteFormDataProvider'
+    prestashop.module.FormGenerator.form.identifiable_object.data_provider.form_form_data_provider:
+        class: 'Module\FormGenerator\Form\FormFormDataProvider'
         arguments:
-            - '@prestashop.module.demodoctrine.repository.quote_repository'
+            - '@prestashop.module.FormGenerator.repository.form_repository'
 
-    prestashop.module.demodoctrine.form.identifiable_object.builder.quote_form_builder:
+    prestashop.module.FormGenerator.form.identifiable_object.builder.form_form_builder:
         class: 'PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Builder\FormBuilder'
         public: true
         factory: 'prestashop.core.form.builder.form_builder_factory:create'
         arguments:
-            - 'Module\DemoDoctrine\Form\QuoteType'
-            - '@prestashop.module.demodoctrine.form.identifiable_object.data_provider.quote_form_data_provider'
+            - 'Module\FormGenerator\Form\FormType'
+            - '@prestashop.module.FormGenerator.form.identifiable_object.data_provider.form_form_data_provider'
 
-    prestashop.module.demodoctrine.form.identifiable_object.data_handler.quote_form_data_handler:
-        class: 'Module\DemoDoctrine\Form\QuoteFormDataHandler'
+    prestashop.module.FormGenerator.form.identifiable_object.data_handler.form_form_data_handler:
+        class: 'Module\FormGenerator\Form\FormFormDataHandler'
         arguments:
-            - '@prestashop.module.demodoctrine.repository.quote_repository'
+            - '@prestashop.module.FormGenerator.repository.form_repository'
             - '@prestashop.core.admin.lang.repository'
             - '@doctrine.orm.default_entity_manager'
 
-    prestashop.module.demodoctrine.form.identifiable_object.handler.quote_form_handler:
+    prestashop.module.FormGenerator.form.identifiable_object.handler.form_form_handler:
         class: 'PrestaShop\PrestaShop\Core\Form\IdentifiableObject\Handler\FormHandler'
         public: true
         factory: 'prestashop.core.form.identifiable_object.handler.form_handler_factory:create'
         arguments:
-            - '@prestashop.module.demodoctrine.form.identifiable_object.data_handler.quote_form_data_handler'
+            - '@prestashop.module.FormGenerator.form.identifiable_object.data_handler.form_form_data_handler'
 
     # Grid services
-    prestashop.module.demodoctrine.grid.definition.factory.quotes:
-        class: 'Module\DemoDoctrine\Grid\Definition\Factory\QuoteGridDefinitionFactory'
+    prestashop.module.FormGenerator.grid.definition.factory.forms:
+        class: 'Module\FormGenerator\Grid\Definition\Factory\FormGridDefinitionFactory'
         parent: 'prestashop.core.grid.definition.factory.abstract_grid_definition'
 
-    prestashop.module.demodoctrine.grid.query_builder.quote:
-        class: 'Module\DemoDoctrine\Grid\Query\QuoteQueryBuilder'
+    prestashop.module.FormGenerator.grid.query_builder.form:
+        class: 'Module\FormGenerator\Grid\Query\FormQueryBuilder'
         parent: 'prestashop.core.grid.abstract_query_builder'
         public: true
         arguments:
             - '@prestashop.core.query.doctrine_search_criteria_applicator'
             - "@=service('prestashop.adapter.legacy.context').getContext().language.id"
 
-    prestashop.module.demodoctrine.grid.data_provider.quotes:
+    prestashop.module.FormGenerator.grid.data_provider.forms:
         class: '%prestashop.core.grid.data.factory.doctrine_grid_data_factory%'
         arguments:
-            - '@prestashop.module.demodoctrine.grid.query_builder.quote'
+            - '@prestashop.module.FormGenerator.grid.query_builder.form'
             - '@prestashop.core.hook.dispatcher'
             - '@prestashop.core.grid.query.doctrine_query_parser'
-            - 'quote'
+            - 'form'
 
-    prestashop.module.demodoctrine.grid.factory.quotes:
+    prestashop.module.FormGenerator.grid.factory.forms:
         class: 'PrestaShop\PrestaShop\Core\Grid\GridFactory'
         public: true
         arguments:
-            - '@prestashop.module.demodoctrine.grid.definition.factory.quotes'
-            - '@prestashop.module.demodoctrine.grid.data_provider.quotes'
+            - '@prestashop.module.FormGenerator.grid.definition.factory.forms'
+            - '@prestashop.module.FormGenerator.grid.data_provider.forms'
             - '@prestashop.core.grid.filter.form_factory'
             - '@prestashop.core.hook.dispatcher'
 
     # Generator service
-    prestashop.module.demodoctrine.quotes.generator:
-        class: 'Module\DemoDoctrine\Database\QuoteGenerator'
+    prestashop.module.FormGenerator.forms.generator:
+        class: 'Module\FormGenerator\Database\FormGenerator'
         public: true
         arguments:
-            - '@prestashop.module.demodoctrine.repository.quote_repository'
+            - '@prestashop.module.FormGenerator.repository.form_repository'
             - '@prestashop.core.admin.lang.repository'
             - '@doctrine.orm.default_entity_manager'

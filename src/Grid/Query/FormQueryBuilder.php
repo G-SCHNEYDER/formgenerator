@@ -9,7 +9,7 @@
  */
 declare(strict_types=1);
 
-namespace Module\DemoDoctrine\Grid\Query;
+namespace Module\FormGenerator\Grid\Query;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Query\QueryBuilder;
@@ -17,7 +17,7 @@ use PrestaShop\PrestaShop\Core\Grid\Query\AbstractDoctrineQueryBuilder;
 use PrestaShop\PrestaShop\Core\Grid\Query\DoctrineSearchCriteriaApplicatorInterface;
 use PrestaShop\PrestaShop\Core\Grid\Search\SearchCriteriaInterface;
 
-class QuoteQueryBuilder extends AbstractDoctrineQueryBuilder
+class FormQueryBuilder extends AbstractDoctrineQueryBuilder
 {
     /**
      * @var DoctrineSearchCriteriaApplicatorInterface
@@ -54,8 +54,8 @@ class QuoteQueryBuilder extends AbstractDoctrineQueryBuilder
     {
         $qb = $this->getQueryBuilder($searchCriteria->getFilters());
         $qb
-            ->select('q.id_quote, q.author, ql.content')
-            ->groupBy('q.id_quote');
+            ->select('q.id_form, q.author, ql.content')
+            ->groupBy('q.id_form');
 
         $this->searchCriteriaApplicator
             ->applySorting($searchCriteria, $qb)
@@ -71,7 +71,7 @@ class QuoteQueryBuilder extends AbstractDoctrineQueryBuilder
     public function getCountQueryBuilder(SearchCriteriaInterface $searchCriteria)
     {
         $qb = $this->getQueryBuilder($searchCriteria->getFilters())
-            ->select('COUNT(DISTINCT q.id_quote)');
+            ->select('COUNT(DISTINCT q.id_form)');
 
         return $qb;
     }
@@ -86,15 +86,15 @@ class QuoteQueryBuilder extends AbstractDoctrineQueryBuilder
     private function getQueryBuilder(array $filters)
     {
         $allowedFilters = [
-            'id_quote',
+            'id_form',
             'author',
             'content',
         ];
 
         $qb = $this->connection
             ->createQueryBuilder()
-            ->from($this->dbPrefix . 'quote', 'q')
-            ->innerJoin('q', $this->dbPrefix . 'quote_lang', 'ql', 'q.id_quote = ql.id_quote')
+            ->from($this->dbPrefix . 'form', 'q')
+            ->innerJoin('q', $this->dbPrefix . 'form_lang', 'ql', 'q.id_form = ql.id_form')
             ->andWhere('ql.`id_lang`= :language')
             ->setParameter('language', $this->languageId)
         ;
@@ -104,8 +104,8 @@ class QuoteQueryBuilder extends AbstractDoctrineQueryBuilder
                 continue;
             }
 
-            if ('id_quote' === $name) {
-                $qb->andWhere('q.`id_quote` = :' . $name);
+            if ('id_form' === $name) {
+                $qb->andWhere('q.`id_form` = :' . $name);
                 $qb->setParameter($name, $value);
 
                 continue;

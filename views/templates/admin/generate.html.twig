@@ -17,7 +17,7 @@
             <form method="post" class="form-horizontal">
                 <div class="card">
                     <h3 class="card-header">
-                        <i class="material-icons">settings</i> {{ 'Generate forms'|trans({}, 'Modules.Demodoctrine.Admin') }}
+                        <i class="material-icons">settings</i> {{ 'Generate forms'|trans({}, 'Modules.formgenerator.Admin') }}
                     </h3>
                     <div class="card-block">
                         <div class="card-text">
@@ -25,8 +25,8 @@
                                 <div class="col-sm">
                                     <div class="alert alert-info" role="alert">
                                         <div class="alert-text">
-                                            <p>{{ 'If you want to generate the demo forms, please click on "%generate_button_label%". Please be aware that this will remove your existing forms (if present).'|trans({'%generate_button_label%': 'Generate forms'|trans({}, 'Modules.Demodoctrine.Admin')}, 'Modules.Demodoctrine.Admin') }}</p>
-                                            <p>{{ 'If you don\'t want to generate the demo forms, simple click on "%back_button_label%" to go back to the list.'|trans({'%back_button_label%': 'Go back to forms list'|trans({}, 'Modules.Demodoctrine.Admin')}, 'Modules.Demodoctrine.Admin') }}</p>
+                                            <p>{{ 'If you want to generate the demo forms, please click on "%generate_button_label%". Please be aware that this will remove your existing forms (if present).'|trans({'%generate_button_label%': 'Generate forms'|trans({}, 'Modules.formgenerator.Admin')}, 'Modules.formgenerator.Admin') }}</p>
+                                            <p>{{ 'If you don\'t want to generate the demo forms, simple click on "%back_button_label%" to go back to the list.'|trans({'%back_button_label%': 'Go back to forms list'|trans({}, 'Modules.formgenerator.Admin')}, 'Modules.formgenerator.Admin') }}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -35,12 +35,12 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-inline-flex">
-                            <a class="btn btn-outline-secondary" href="{{ path('ps_demodoctrine_form_index') }}">
-                                {{ 'Go back to forms list'|trans({}, 'Modules.Demodoctrine.Admin') }}
+                            <a class="btn btn-outline-secondary" href="{{ path('ps_formgenerator_form_index') }}">
+                                {{ 'Go back to forms list'|trans({}, 'Modules.formgenerator.Admin') }}
                             </a>
                         </div>
                         <div class="d-inline-flex float-right">
-                            <button class="btn btn-primary">{{ 'Generate forms'|trans({}, 'Modules.Demodoctrine.Admin') }}</button>
+                            <button class="btn btn-primary">{{ 'Generate forms'|trans({}, 'Modules.formgenerator.Admin') }}</button>
                         </div>
                     </div>
                 </div>

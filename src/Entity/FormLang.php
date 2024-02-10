@@ -9,7 +9,7 @@
  */
 declare(strict_types=1);
 
-namespace Module\DemoDoctrine\Entity;
+namespace Module\FormGenerator\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use PrestaShopBundle\Entity\Lang;
@@ -18,15 +18,15 @@ use PrestaShopBundle\Entity\Lang;
  * @ORM\Table()
  * @ORM\Entity()
  */
-class QuoteLang
+class FormLang
 {
     /**
-     * @var Quote
+     * @var Form
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Module\DemoDoctrine\Entity\Quote", inversedBy="quoteLangs")
-     * @ORM\JoinColumn(name="id_quote", referencedColumnName="id_quote", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Module\FormGenerator\Entity\Form", inversedBy="formLangs")
+     * @ORM\JoinColumn(name="id_form", referencedColumnName="id_form", nullable=false)
      */
-    private $quote;
+    private $form;
 
     /**
      * @var Lang
@@ -43,20 +43,20 @@ class QuoteLang
     private $content;
 
     /**
-     * @return Quote
+     * @return Form
      */
-    public function getQuote()
+    public function getForm()
     {
-        return $this->quote;
+        return $this->form;
     }
 
     /**
-     * @param Quote $quote
+     * @param Form $form
      * @return $this
      */
-    public function setQuote(Quote $quote)
+    public function setForm(Form $form)
     {
-        $this->quote = $quote;
+        $this->form = $form;
 
         return $this;
     }

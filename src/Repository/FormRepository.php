@@ -9,12 +9,12 @@
  */
 declare(strict_types=1);
 
-namespace Module\DemoDoctrine\Repository;
+namespace Module\FormGenerator\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
-class QuoteRepository extends EntityRepository
+class FormRepository extends EntityRepository
 {
     /**
      * Since RAND() is not available by default in Doctrine and we haven't an extension that
@@ -31,7 +31,7 @@ class QuoteRepository extends EntityRepository
         $qb = $this->createQueryBuilder('q')
             ->addSelect('q')
             ->addSelect('ql')
-            ->leftJoin('q.quoteLangs', 'ql')
+            ->leftJoin('q.formLangs', 'ql')
         ;
 
         if (0 !== $langId) {
@@ -51,12 +51,12 @@ class QuoteRepository extends EntityRepository
             ->setParameter('ids', $ids)
         ;
 
-        $quotes = $qb->getQuery()->getResult();
-        uasort($quotes, function($a, $b) use ($ids) {
+        $forms = $qb->getQuery()->getResult();
+        uasort($forms, function($a, $b) use ($ids) {
             return array_search($a->getId(), $ids) - array_search($b->getId(), $ids);
         });
 
-        return $quotes;
+        return $forms;
     }
 
     public function getAllIds()
@@ -67,10 +67,10 @@ class QuoteRepository extends EntityRepository
             ->select('q.id')
         ;
 
-        $quotes = $qb->getQuery()->getScalarResult();
+        $forms = $qb->getQuery()->getScalarResult();
 
-        return array_map(function($quote) {
-            return $quote['id'];
-        }, $quotes);
+        return array_map(function($form) {
+            return $form['id'];
+        }, $forms);
     }
 }

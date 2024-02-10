@@ -9,7 +9,7 @@
  */
 declare(strict_types=1);
 
-namespace Module\DemoDoctrine\Entity;
+namespace Module\FormGenerator\Entity;
 
 use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -17,16 +17,16 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Module\DemoDoctrine\Repository\QuoteRepository")
+ * @ORM\Entity(repositoryClass="Module\FormGenerator\Repository\FormRepository")
  * @ORM\HasLifecycleCallbacks
  */
-class Quote
+class Form
 {
     /**
      * @var int
      *
      * @ORM\Id
-     * @ORM\Column(name="id_quote", type="integer")
+     * @ORM\Column(name="id_form", type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
@@ -39,9 +39,9 @@ class Quote
     private $author;
 
     /**
-     * @ORM\OneToMany(targetEntity="Module\DemoDoctrine\Entity\QuoteLang", cascade={"persist", "remove"}, mappedBy="quote")
+     * @ORM\OneToMany(targetEntity="Module\FormGenerator\Entity\FormLang", cascade={"persist", "remove"}, mappedBy="form")
      */
-    private $quoteLangs;
+    private $formLangs;
 
     /**
      * @var DateTime
@@ -59,7 +59,7 @@ class Quote
 
     public function __construct()
     {
-        $this->quoteLangs = new ArrayCollection();
+        $this->formLangs = new ArrayCollection();
     }
 
     /**
@@ -73,20 +73,20 @@ class Quote
     /**
      * @return ArrayCollection
      */
-    public function getQuoteLangs()
+    public function getFormLangs()
     {
-        return $this->quoteLangs;
+        return $this->formLangs;
     }
 
     /**
      * @param int $langId
-     * @return QuoteLang|null
+     * @return FormLang|null
      */
-    public function getQuoteLangByLangId(int $langId)
+    public function getFormLangByLangId(int $langId)
     {
-        foreach ($this->quoteLangs as $quoteLang) {
-            if ($langId === $quoteLang->getLang()->getId()) {
-                return $quoteLang;
+        foreach ($this->formLangs as $formLang) {
+            if ($langId === $formLang->getLang()->getId()) {
+                return $formLang;
             }
         }
 
@@ -94,13 +94,13 @@ class Quote
     }
 
     /**
-     * @param QuoteLang $quoteLang
+     * @param FormLang $formLang
      * @return $this
      */
-    public function addQuoteLang(QuoteLang $quoteLang)
+    public function addFormLang(FormLang $formLang)
     {
-        $quoteLang->setQuote($this);
-        $this->quoteLangs->add($quoteLang);
+        $formLang->setForm($this);
+        $this->formLangs->add($formLang);
 
         return $this;
     }
@@ -108,15 +108,15 @@ class Quote
     /**
      * @return string
      */
-    public function getQuoteContent()
+    public function getFormContent()
     {
-        if ($this->quoteLangs->count() <= 0) {
+        if ($this->formLangs->count() <= 0) {
             return '';
         }
 
-        $quoteLang = $this->quoteLangs->first();
+        $formLang = $this->formLangs->first();
 
-        return $quoteLang->getContent();
+        return $formLang->getContent();
     }
 
     /**

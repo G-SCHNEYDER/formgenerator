@@ -22,7 +22,7 @@
   * @license   http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
   * International Registered Trademark & Property of PrestaShop SA
   *}
-<link href="/modules/demodoctrine/views/css/forms.css" rel="stylesheet">
+<link href="/modules/formgenerator/views/css/forms.css" rel="stylesheet">
 <div class="row demo-doctrine-forms">
     {foreach $forms as $form}
     <div class="col col-sm-4">

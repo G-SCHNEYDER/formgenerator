@@ -9,24 +9,24 @@
  */
 declare(strict_types=1);
 
-namespace Module\DemoDoctrine\Form;
+namespace Module\FormGenerator\Form;
 
-use Module\DemoDoctrine\Entity\Quote;
-use Module\DemoDoctrine\Entity\QuoteLang;
-use Module\DemoDoctrine\Repository\QuoteRepository;
+use Module\FormGenerator\Entity\Form;
+use Module\FormGenerator\Entity\FormLang;
+use Module\FormGenerator\Repository\FormRepository;
 use PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataProvider\FormDataProviderInterface;
 
-class QuoteFormDataProvider implements FormDataProviderInterface
+class FormFormDataProvider implements FormDataProviderInterface
 {
     /**
-     * @var QuoteRepository
+     * @var FormRepository
      */
     private $repository;
 
     /**
-     * @param QuoteRepository $repository
+     * @param FormRepository $repository
      */
-    public function __construct(QuoteRepository $repository)
+    public function __construct(FormRepository $repository)
     {
         $this->repository = $repository;
     }
@@ -34,18 +34,18 @@ class QuoteFormDataProvider implements FormDataProviderInterface
     /**
      * {@inheritdoc}
      */
-    public function getData($quoteId)
+    public function getData($formId)
     {
-        $quote = $this->repository->findOneById($quoteId);
+        $form = $this->repository->findOneById($formId);
 
-        $quoteData = [
-            'author' => $quote->getAuthor(),
+        $formData = [
+            'author' => $form->getAuthor(),
         ];
-        foreach ($quote->getQuoteLangs() as $quoteLang) {
-            $quoteData['content'][$quoteLang->getLang()->getId()] = $quoteLang->getContent();
+        foreach ($form->getFormLangs() as $formLang) {
+            $formData['content'][$formLang->getLang()->getId()] = $formLang->getContent();
         }
 
-        return $quoteData;
+        return $formData;
     }
 
     /**

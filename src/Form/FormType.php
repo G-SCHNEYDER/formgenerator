@@ -9,7 +9,7 @@
  */
 declare(strict_types=1);
 
-namespace Module\DemoDoctrine\Form;
+namespace Module\FormGenerator\Form;
 
 use PrestaShop\PrestaShop\Core\ConstraintValidator\Constraints\DefaultLanguage;
 use PrestaShopBundle\Form\Admin\Type\TranslatableType;
@@ -19,7 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-class QuoteType extends TranslatorAwareType
+class FormType extends TranslatorAwareType
 {
     /**
      * {@inheritdoc}
@@ -30,7 +30,7 @@ class QuoteType extends TranslatorAwareType
             ->add('author', TextType::class, [
                 'label' => 'Author name',
                 'help' => 'Author name (e.g. Alexandre Dumas).',
-                'translation_domain' => 'Modules.Demodoctrine.Admin',
+                'translation_domain' => 'Modules.FormGenerator.Admin',
                 'constraints' => [
                     new Length([
                         'max' => 255,
@@ -45,8 +45,8 @@ class QuoteType extends TranslatorAwareType
             ])
             ->add('content', TranslatableType::class, [
                 'label' => 'Content',
-                'help' => 'Quote content (e.g. All for one, one for all).',
-                'translation_domain' => 'Modules.Demodoctrine.Admin',
+                'help' => 'Form content (e.g. All for one, one for all).',
+                'translation_domain' => 'Modules.FormGenerator.Admin',
                 'constraints' => [
                     new DefaultLanguage([
                         'message' => $this->trans(
@@ -55,7 +55,7 @@ class QuoteType extends TranslatorAwareType
                             [
                                 '%field_name%' => sprintf(
                                     '"%s"',
-                                    $this->trans('Content', 'Modules.Demodoctrine.Admin')
+                                    $this->trans('Content', 'Modules.FormGenerator.Admin')
                                 ),
                             ]
                         ),

@@ -15,8 +15,8 @@ module.exports = {
     jquery: 'jQuery',
   },
   entry: {
-    quotes: './quotes',
-    quote_form: './quotes/form',
+    forms: './forms',
+    form_form: './forms/form',
   },
   output: {
     path: path.resolve(__dirname, '../../views/js'),
@@ -34,7 +34,7 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: path.resolve(__dirname, '../quotes'),
+        include: path.resolve(__dirname, '../forms'),
         use: [{
           loader: 'babel-loader',
           options: {

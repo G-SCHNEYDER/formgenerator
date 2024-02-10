@@ -1,60 +1,60 @@
 # @see https://devdocs.prestashop.com/1.7/modules/concepts/controllers/admin-controllers/#how-to-map-an-action-of-your-controller-to-a-uri
-ps_demodoctrine_quote_index:
-    path: /demo-doctrine/quotes
+ps_FormGenerator_form_index:
+    path: /demo-doctrine/forms
     methods: [GET]
     defaults:
-        _controller: 'Module\DemoDoctrine\Controller\Admin\QuotesController::indexAction'
-        _legacy_controller: 'AdminDemodoctrineQuote'
-        _legacy_link: 'AdminDemodoctrineQuote'
+        _controller: 'Module\FormGenerator\Controller\Admin\FormsController::indexAction'
+        _legacy_controller: 'AdminFormGeneratorForm'
+        _legacy_link: 'AdminFormGeneratorForm'
 
-ps_demodoctrine_quote_search:
-    path: /demo-doctrine/quotes
+ps_FormGenerator_form_search:
+    path: /demo-doctrine/forms
     methods: [POST]
     defaults:
-        _controller: 'Module\DemoDoctrine\Controller\Admin\QuotesController::searchAction'
-        _legacy_controller: 'AdminDemodoctrineQuote'
-        _legacy_link: 'AdminDemodoctrineQuote:search'
+        _controller: 'Module\FormGenerator\Controller\Admin\FormsController::searchAction'
+        _legacy_controller: 'AdminFormGeneratorForm'
+        _legacy_link: 'AdminFormGeneratorForm:search'
 
-ps_demodoctrine_quote_generate:
+ps_FormGenerator_form_generate:
     path: /demo-doctrine/generate
     methods: [GET, POST]
     defaults:
-        _controller: 'Module\DemoDoctrine\Controller\Admin\QuotesController::generateAction'
-        _legacy_controller: 'AdminDemodoctrineQuote'
-        _legacy_link: 'AdminDemodoctrineQuote:generate'
+        _controller: 'Module\FormGenerator\Controller\Admin\FormsController::generateAction'
+        _legacy_controller: 'AdminFormGeneratorForm'
+        _legacy_link: 'AdminFormGeneratorForm:generate'
 
-ps_demodoctrine_quote_create:
-    path: /demo-doctrine/quotes/new
+ps_FormGenerator_form_create:
+    path: /demo-doctrine/forms/new
     methods: [GET, POST]
     defaults:
-        _controller: 'Module\DemoDoctrine\Controller\Admin\QuotesController::createAction'
-        _legacy_controller: 'AdminDemodoctrineQuote'
-        _legacy_link: 'AdminDemodoctrineQuote:add'
+        _controller: 'Module\FormGenerator\Controller\Admin\FormsController::createAction'
+        _legacy_controller: 'AdminFormGeneratorForm'
+        _legacy_link: 'AdminFormGeneratorForm:add'
 
-ps_demodoctrine_quote_edit:
-    path: /demo-doctrine/quotes/{quoteId}/edit
+ps_FormGenerator_form_edit:
+    path: /demo-doctrine/forms/{formId}/edit
     methods: [GET, POST]
     defaults:
-        _controller: 'Module\DemoDoctrine\Controller\Admin\QuotesController::editAction'
-        _legacy_controller: 'AdminDemodoctrineQuote'
-        _legacy_link: 'AdminDemodoctrineQuote:edit'
+        _controller: 'Module\FormGenerator\Controller\Admin\FormsController::editAction'
+        _legacy_controller: 'AdminFormGeneratorForm'
+        _legacy_link: 'AdminFormGeneratorForm:edit'
     requirements:
-        quoteId: \d+
+        formId: \d+
 
-ps_demodoctrine_quote_delete:
-    path: /demo-doctrine/quotes/{quoteId}/delete
+ps_FormGenerator_form_delete:
+    path: /demo-doctrine/forms/{formId}/delete
     methods: [DELETE]
     defaults:
-        _controller: 'Module\DemoDoctrine\Controller\Admin\QuotesController::deleteAction'
-        _legacy_controller: 'AdminDemodoctrineQuote'
-        _legacy_link: 'AdminDemodoctrineQuote:deletequote'
+        _controller: 'Module\FormGenerator\Controller\Admin\FormsController::deleteAction'
+        _legacy_controller: 'AdminFormGeneratorForm'
+        _legacy_link: 'AdminFormGeneratorForm:deleteform'
     requirements:
-        quoteId: \d+
+        formId: \d+
 
-ps_demodoctrine_quote_bulk_delete:
-    path: /demo-doctrine/quotes/bulkDelete
+ps_FormGenerator_form_bulk_delete:
+    path: /demo-doctrine/forms/bulkDelete
     methods: [POST]
     defaults:
-        _controller: 'Module\DemoDoctrine\Controller\Admin\QuotesController::deleteBulkAction'
-        _legacy_controller: 'AdminDemodoctrineQuote'
-        _legacy_link: 'AdminDemodoctrineQuote:submitBulkdeletequote'
+        _controller: 'Module\FormGenerator\Controller\Admin\FormsController::deleteBulkAction'
+        _legacy_controller: 'AdminFormGeneratorForm'
+        _legacy_link: 'AdminFormGeneratorForm:submitBulkdeleteform'

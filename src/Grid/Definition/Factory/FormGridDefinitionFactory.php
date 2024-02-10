@@ -9,7 +9,7 @@
  */
 declare(strict_types=1);
 
-namespace Module\DemoDoctrine\Grid\Definition\Factory;
+namespace Module\FormGenerator\Grid\Definition\Factory;
 
 use PrestaShop\PrestaShop\Core\Grid\Action\Bulk\BulkActionCollection;
 use PrestaShop\PrestaShop\Core\Grid\Action\Bulk\Type\SubmitBulkAction;
@@ -28,9 +28,9 @@ use PrestaShop\PrestaShop\Core\Grid\Filter\FilterCollection;
 use PrestaShopBundle\Form\Admin\Type\SearchAndResetType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class QuoteGridDefinitionFactory extends AbstractGridDefinitionFactory
+class FormGridDefinitionFactory extends AbstractGridDefinitionFactory
 {
-    const GRID_ID = 'quote';
+    const GRID_ID = 'form';
 
     /**
      * {@inheritdoc}
@@ -45,7 +45,7 @@ class QuoteGridDefinitionFactory extends AbstractGridDefinitionFactory
      */
     protected function getName()
     {
-        return $this->trans('Quotes', [], 'Modules.Demodoctrine.Admin');
+        return $this->trans('Forms', [], 'Modules.FormGenerator.Admin');
     }
 
     /**
@@ -56,23 +56,23 @@ class QuoteGridDefinitionFactory extends AbstractGridDefinitionFactory
         return (new ColumnCollection())
             ->add((new BulkActionColumn('bulk'))
                 ->setOptions([
-                    'bulk_field' => 'id_quote',
+                    'bulk_field' => 'id_form',
                 ])
             )
-            ->add((new DataColumn('id_quote'))
+            ->add((new DataColumn('id_form'))
                 ->setName($this->trans('ID', [], 'Admin.Global'))
                 ->setOptions([
-                    'field' => 'id_quote',
+                    'field' => 'id_form',
                 ])
             )
             ->add((new DataColumn('author'))
-                ->setName($this->trans('Author', [], 'Modules.Demodoctrine.Admin'))
+                ->setName($this->trans('Author', [], 'Modules.FormGenerator.Admin'))
                 ->setOptions([
                     'field' => 'author',
                 ])
             )
             ->add((new DataColumn('content'))
-                ->setName($this->trans('Content', [], 'Modules.Demodoctrine.Admin'))
+                ->setName($this->trans('Content', [], 'Modules.FormGenerator.Admin'))
                 ->setOptions([
                     'field' => 'content',
                 ])
@@ -85,9 +85,9 @@ class QuoteGridDefinitionFactory extends AbstractGridDefinitionFactory
                             ->setName($this->trans('Edit', [], 'Admin.Actions'))
                             ->setIcon('edit')
                             ->setOptions([
-                                'route' => 'ps_demodoctrine_quote_edit',
-                                'route_param_name' => 'quoteId',
-                                'route_param_field' => 'id_quote',
+                                'route' => 'ps_FormGenerator_form_edit',
+                                'route_param_name' => 'formId',
+                                'route_param_field' => 'id_form',
                                 'clickable_row' => true,
                             ])
                         )
@@ -96,9 +96,9 @@ class QuoteGridDefinitionFactory extends AbstractGridDefinitionFactory
                             ->setIcon('delete')
                             ->setOptions([
                                 'method' => 'DELETE',
-                                'route' => 'ps_demodoctrine_quote_delete',
-                                'route_param_name' => 'quoteId',
-                                'route_param_field' => 'id_quote',
+                                'route' => 'ps_FormGenerator_form_delete',
+                                'route_param_name' => 'formId',
+                                'route_param_field' => 'id_form',
                                 'confirm_message' => $this->trans(
                                     'Delete selected item?',
                                     [],
@@ -117,20 +117,20 @@ class QuoteGridDefinitionFactory extends AbstractGridDefinitionFactory
     protected function getFilters()
     {
         return (new FilterCollection())
-            ->add((new Filter('id_quote', TextType::class))
+            ->add((new Filter('id_form', TextType::class))
                 ->setTypeOptions([
                     'required' => false,
                     'attr' => [
                         'placeholder' => $this->trans('ID', [], 'Admin.Global'),
                     ],
                 ])
-                ->setAssociatedColumn('id_quote')
+                ->setAssociatedColumn('id_form')
             )
             ->add((new Filter('author', TextType::class))
                 ->setTypeOptions([
                     'required' => false,
                     'attr' => [
-                        'placeholder' => $this->trans('author', [], 'Modules.Demodoctrine.Admin'),
+                        'placeholder' => $this->trans('author', [], 'Modules.FormGenerator.Admin'),
                     ],
                 ])
                 ->setAssociatedColumn('author')
@@ -139,7 +139,7 @@ class QuoteGridDefinitionFactory extends AbstractGridDefinitionFactory
                 ->setTypeOptions([
                     'required' => false,
                     'attr' => [
-                        'placeholder' => $this->trans('Content', [], 'Modules.Demodoctrine.Admin'),
+                        'placeholder' => $this->trans('Content', [], 'Modules.FormGenerator.Admin'),
                     ],
                 ])
                 ->setAssociatedColumn('content')
@@ -150,7 +150,7 @@ class QuoteGridDefinitionFactory extends AbstractGridDefinitionFactory
                     'reset_route_params' => [
                         'filterId' => self::GRID_ID,
                     ],
-                    'redirect_route' => 'ps_demodoctrine_quote_index',
+                    'redirect_route' => 'ps_FormGenerator_form_index',
                 ])
                 ->setAssociatedColumn('actions')
             )
@@ -187,7 +187,7 @@ class QuoteGridDefinitionFactory extends AbstractGridDefinitionFactory
             ->add((new SubmitBulkAction('delete_bulk'))
                 ->setName($this->trans('Delete selected', [], 'Admin.Actions'))
                 ->setOptions([
-                    'submit_route' => 'ps_demodoctrine_quote_bulk_delete',
+                    'submit_route' => 'ps_FormGenerator_form_bulk_delete',
                     'confirm_message' => $this->trans('Delete selected items?', [], 'Admin.Notifications.Warning'),
                 ])
             )

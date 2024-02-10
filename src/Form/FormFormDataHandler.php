@@ -9,21 +9,21 @@
  */
 declare(strict_types=1);
 
-namespace Module\DemoDoctrine\Form;
+namespace Module\FormGenerator\Form;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Module\DemoDoctrine\Entity\Quote;
-use Module\DemoDoctrine\Entity\QuoteLang;
-use Module\DemoDoctrine\Repository\QuoteRepository;
+use Module\FormGenerator\Entity\Form;
+use Module\FormGenerator\Entity\FormLang;
+use Module\FormGenerator\Repository\FormRepository;
 use PrestaShop\PrestaShop\Core\Form\IdentifiableObject\DataHandler\FormDataHandlerInterface;
 use PrestaShopBundle\Entity\Repository\LangRepository;
 
-class QuoteFormDataHandler implements FormDataHandlerInterface
+class FormFormDataHandler implements FormDataHandlerInterface
 {
     /**
-     * @var QuoteRepository
+     * @var FormRepository
      */
-    private $quoteRepository;
+    private $formRepository;
 
     /**
      * @var LangRepository
@@ -36,16 +36,16 @@ class QuoteFormDataHandler implements FormDataHandlerInterface
     private $entityManager;
 
     /**
-     * @param QuoteRepository $quoteRepository
+     * @param FormRepository $formRepository
      * @param LangRepository $langRepository
      * @param EntityManagerInterface $entityManager
      */
     public function __construct(
-        QuoteRepository $quoteRepository,
+        FormRepository $formRepository,
         LangRepository $langRepository,
         EntityManagerInterface $entityManager
     ) {
-        $this->quoteRepository = $quoteRepository;
+        $this->formRepository = $formRepository;
         $this->langRepository = $langRepository;
         $this->entityManager = $entityManager;
     }
@@ -55,21 +55,21 @@ class QuoteFormDataHandler implements FormDataHandlerInterface
      */
     public function create(array $data)
     {
-        $quote = new Quote();
-        $quote->setAuthor($data['author']);
+        $form = new Form();
+        $form->setAuthor($data['author']);
         foreach ($data['content'] as $langId => $langContent) {
             $lang = $this->langRepository->findOneById($langId);
-            $quoteLang = new QuoteLang();
-            $quoteLang
+            $formLang = new FormLang();
+            $formLang
                 ->setLang($lang)
                 ->setContent($langContent)
             ;
-            $quote->addQuoteLang($quoteLang);
+            $form->addFormLang($formLang);
         }
-        $this->entityManager->persist($quote);
+        $this->entityManager->persist($form);
         $this->entityManager->flush();
 
-        return $quote->getId();
+        return $form->getId();
     }
 
     /**
@@ -77,17 +77,17 @@ class QuoteFormDataHandler implements FormDataHandlerInterface
      */
     public function update($id, array $data)
     {
-        $quote = $this->quoteRepository->findOneById($id);
-        $quote->setAuthor($data['author']);
+        $form = $this->formRepository->findOneById($id);
+        $form->setAuthor($data['author']);
         foreach ($data['content'] as $langId => $content) {
-            $quoteLang = $quote->getQuoteLangByLangId($langId);
-            if (null === $quoteLang) {
+            $formLang = $form->getFormLangByLangId($langId);
+            if (null === $formLang) {
                 continue;
             }
-            $quoteLang->setContent($content);
+            $formLang->setContent($content);
         }
         $this->entityManager->flush();
 
-        return $quote->getId();
+        return $form->getId();
     }
 }

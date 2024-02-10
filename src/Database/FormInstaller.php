@@ -9,7 +9,7 @@
  */
 declare(strict_types=1);
 
-namespace Module\DemoDoctrine\Database;
+namespace Module\FormGenerator\Database;
 
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DBALException;
@@ -19,7 +19,7 @@ use Doctrine\DBAL\Driver\Statement;
  * We cannot use Doctrine entities on install because the mapping is not available yet
  * but we can still use Doctrine connection to perform DQL or SQL queries.
  */
-class QuoteInstaller
+class FormInstaller
 {
     /**
      * @var Connection
@@ -82,8 +82,8 @@ class QuoteInstaller
     {
         $errors = [];
         $tableNames = [
-            'quote',
-            'quote_lang',
+            'form',
+            'form_lang',
         ];
         foreach ($tableNames as $tableName) {
             $sql = 'DROP TABLE IF EXISTS ' . $this->dbPrefix . $tableName;

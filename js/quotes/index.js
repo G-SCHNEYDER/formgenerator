@@ -21,15 +21,15 @@ import SubmitRowActionExtension from '@components/grid/extension/action/row/subm
 const $ = window.$;
 
 $(() => {
-  const quotesGrid = new Grid('quote');
+  const formsGrid = new Grid('form');
 
-  quotesGrid.addExtension(new ReloadListActionExtension());
-  quotesGrid.addExtension(new ExportToSqlManagerExtension());
-  quotesGrid.addExtension(new FiltersResetExtension());
-  quotesGrid.addExtension(new SortingExtension());
-  quotesGrid.addExtension(new LinkRowActionExtension());
-  quotesGrid.addExtension(new SubmitGridExtension());
-  quotesGrid.addExtension(new SubmitBulkExtension());
-  quotesGrid.addExtension(new BulkActionCheckboxExtension());
-  quotesGrid.addExtension(new SubmitRowActionExtension());
+  formsGrid.addExtension(new ReloadListActionExtension());
+  formsGrid.addExtension(new ExportToSqlManagerExtension());
+  formsGrid.addExtension(new FiltersResetExtension());
+  formsGrid.addExtension(new SortingExtension());
+  formsGrid.addExtension(new LinkRowActionExtension());
+  formsGrid.addExtension(new SubmitGridExtension());
+  formsGrid.addExtension(new SubmitBulkExtension());
+  formsGrid.addExtension(new BulkActionCheckboxExtension());
+  formsGrid.addExtension(new SubmitRowActionExtension());
 });

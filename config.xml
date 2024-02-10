@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <module>
-    <name>demodoctrine</name>
+    <name>formgenerator</name>
     <displayName><![CDATA[Demo doctrine]]></displayName>
     <version><![CDATA[1.0.0]]></version>
     <description><![CDATA[Demonstration of Doctrine entities in PrestaShop]]></description>

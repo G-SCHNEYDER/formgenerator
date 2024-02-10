@@ -9,17 +9,17 @@
  */
 declare(strict_types=1);
 
-namespace Module\DemoDoctrine\Controller\Admin;
+namespace Module\FormGenerator\Controller\Admin;
 
 use Doctrine\DBAL\Driver\Connection;
 use Doctrine\DBAL\Exception\TableExistsException;
 use Doctrine\DBAL\Exception\TableNotFoundException;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityNotFoundException;
-use Module\DemoDoctrine\Entity\Form;
-use Module\DemoDoctrine\Entity\FormLang;
-use Module\DemoDoctrine\Grid\Definition\Factory\FormGridDefinitionFactory;
-use Module\DemoDoctrine\Grid\Filters\FormFilters;
+use Module\FormGenerator\Entity\Form;
+use Module\FormGenerator\Entity\FormLang;
+use Module\FormGenerator\Grid\Definition\Factory\FormGridDefinitionFactory;
+use Module\FormGenerator\Grid\Filters\FormFilters;
 use PrestaShopBundle\Controller\Admin\FrameworkBundleAdminController;
 use PrestaShopBundle\Entity\Lang;
 use PrestaShopBundle\Entity\Repository\LangRepository;
@@ -40,14 +40,14 @@ class FormsController extends FrameworkBundleAdminController
      */
     public function indexAction(FormFilters $filters)
     {
-        $formGridFactory = $this->get('prestashop.module.demodoctrine.grid.factory.forms');
+        $formGridFactory = $this->get('prestashop.module.FormGenerator.grid.factory.forms');
         $formGrid = $formGridFactory->getGrid($filters);
 
         return $this->render(
-            '@Modules/demodoctrine/views/templates/admin/index.html.twig',
+            '@Modules/FormGenerator/views/templates/admin/index.html.twig',
             [
                 'enableSidebar' => true,
-                'layoutTitle' => $this->trans('Forms', 'Modules.Demodoctrine.Admin'),
+                'layoutTitle' => $this->trans('Forms', 'Modules.FormGenerator.Admin'),
                 'layoutHeaderToolbarBtn' => $this->getToolbarButtons(),
                 'formGrid' => $this->presentGrid($formGrid),
             ]
@@ -67,10 +67,10 @@ class FormsController extends FrameworkBundleAdminController
         $responseBuilder = $this->get('prestashop.bundle.grid.response_builder');
 
         return $responseBuilder->buildSearchResponse(
-            $this->get('prestashop.module.demodoctrine.grid.definition.factory.forms'),
+            $this->get('prestashop.module.FormGenerator.grid.definition.factory.forms'),
             $request,
             FormGridDefinitionFactory::GRID_ID,
-            'ps_demodoctrine_form_index'
+            'ps_FormGenerator_form_index'
         );
     }
 
@@ -84,18 +84,18 @@ class FormsController extends FrameworkBundleAdminController
     public function generateAction(Request $request)
     {
         if ($request->isMethod('POST')) {
-            $generator = $this->get('prestashop.module.demodoctrine.forms.generator');
+            $generator = $this->get('prestashop.module.FormGenerator.forms.generator');
             $generator->generateForms();
-            $this->addFlash('success', $this->trans('Forms were successfully generated.', 'Modules.Demodoctrine.Admin'));
+            $this->addFlash('success', $this->trans('Forms were successfully generated.', 'Modules.FormGenerator.Admin'));
 
-            return $this->redirectToRoute('ps_demodoctrine_form_index');
+            return $this->redirectToRoute('ps_FormGenerator_form_index');
         }
 
         return $this->render(
-            '@Modules/demodoctrine/views/templates/admin/generate.html.twig',
+            '@Modules/FormGenerator/views/templates/admin/generate.html.twig',
             [
                 'enableSidebar' => true,
-                'layoutTitle' => $this->trans('Forms', 'Modules.Demodoctrine.Admin'),
+                'layoutTitle' => $this->trans('Forms', 'Modules.FormGenerator.Admin'),
                 'layoutHeaderToolbarBtn' => $this->getToolbarButtons(),
             ]
         );
@@ -110,11 +110,11 @@ class FormsController extends FrameworkBundleAdminController
      */
     public function createAction(Request $request)
     {
-        $formFormBuilder = $this->get('prestashop.module.demodoctrine.form.identifiable_object.builder.form_form_builder');
+        $formFormBuilder = $this->get('prestashop.module.FormGenerator.form.identifiable_object.builder.form_form_builder');
         $formForm = $formFormBuilder->getForm();
         $formForm->handleRequest($request);
 
-        $formFormHandler = $this->get('prestashop.module.demodoctrine.form.identifiable_object.handler.form_form_handler');
+        $formFormHandler = $this->get('prestashop.module.FormGenerator.form.identifiable_object.handler.form_form_handler');
         $result = $formFormHandler->handle($formForm);
 
         if (null !== $result->getIdentifiableObjectId()) {
@@ -123,10 +123,10 @@ class FormsController extends FrameworkBundleAdminController
                 $this->trans('Successful creation.', 'Admin.Notifications.Success')
             );
 
-            return $this->redirectToRoute('ps_demodoctrine_form_index');
+            return $this->redirectToRoute('ps_FormGenerator_form_index');
         }
 
-        return $this->render('@Modules/demodoctrine/views/templates/admin/create.html.twig', [
+        return $this->render('@Modules/FormGenerator/views/templates/admin/create.html.twig', [
             'formForm' => $formForm->createView(),
         ]);
     }
@@ -141,20 +141,20 @@ class FormsController extends FrameworkBundleAdminController
      */
     public function editAction(Request $request, $formId)
     {
-        $formFormBuilder = $this->get('prestashop.module.demodoctrine.form.identifiable_object.builder.form_form_builder');
+        $formFormBuilder = $this->get('prestashop.module.FormGenerator.form.identifiable_object.builder.form_form_builder');
         $formForm = $formFormBuilder->getFormFor((int) $formId);
         $formForm->handleRequest($request);
 
-        $formFormHandler = $this->get('prestashop.module.demodoctrine.form.identifiable_object.handler.form_form_handler');
+        $formFormHandler = $this->get('prestashop.module.FormGenerator.form.identifiable_object.handler.form_form_handler');
         $result = $formFormHandler->handleFor((int) $formId, $formForm);
 
         if ($result->isSubmitted() && $result->isValid()) {
             $this->addFlash('success', $this->trans('Successful update.', 'Admin.Notifications.Success'));
 
-            return $this->redirectToRoute('ps_demodoctrine_form_index');
+            return $this->redirectToRoute('ps_FormGenerator_form_index');
         }
 
-        return $this->render('@Modules/demodoctrine/views/templates/admin/edit.html.twig', [
+        return $this->render('@Modules/FormGenerator/views/templates/admin/edit.html.twig', [
             'formForm' => $formForm->createView(),
         ]);
     }
@@ -168,7 +168,7 @@ class FormsController extends FrameworkBundleAdminController
      */
     public function deleteAction($formId)
     {
-        $repository = $this->get('prestashop.module.demodoctrine.repository.form_repository');
+        $repository = $this->get('prestashop.module.FormGenerator.repository.form_repository');
         try {
             $form = $repository->findOneById($formId);
         } catch (EntityNotFoundException $e) {
@@ -190,13 +190,13 @@ class FormsController extends FrameworkBundleAdminController
                 'error',
                 $this->trans(
                     'Cannot find form %form%',
-                    'Modules.Demodoctrine.Admin',
+                    'Modules.FormGenerator.Admin',
                     ['%form%' => $formId]
                 )
             );
         }
 
-        return $this->redirectToRoute('ps_demodoctrine_form_index');
+        return $this->redirectToRoute('ps_FormGenerator_form_index');
     }
 
     /**
@@ -209,7 +209,7 @@ class FormsController extends FrameworkBundleAdminController
     public function deleteBulkAction(Request $request)
     {
         $formIds = $request->request->get('form_bulk');
-        $repository = $this->get('prestashop.module.demodoctrine.repository.form_repository');
+        $repository = $this->get('prestashop.module.FormGenerator.repository.form_repository');
         try {
             $forms = $repository->findById($formIds);
         } catch (EntityNotFoundException $e) {
@@ -229,7 +229,7 @@ class FormsController extends FrameworkBundleAdminController
             );
         }
 
-        return $this->redirectToRoute('ps_demodoctrine_form_index');
+        return $this->redirectToRoute('ps_FormGenerator_form_index');
     }
 
     /**
@@ -239,14 +239,14 @@ class FormsController extends FrameworkBundleAdminController
     {
         return [
             'add' => [
-                'desc' => $this->trans('Add new form', 'Modules.Demodoctrine.Admin'),
+                'desc' => $this->trans('Add new form', 'Modules.FormGenerator.Admin'),
                 'icon' => 'add_circle_outline',
-                'href' => $this->generateUrl('ps_demodoctrine_form_create'),
+                'href' => $this->generateUrl('ps_FormGenerator_form_create'),
             ],
             'generate' => [
-                'desc' => $this->trans('Generate forms', 'Modules.Demodoctrine.Admin'),
+                'desc' => $this->trans('Generate forms', 'Modules.FormGenerator.Admin'),
                 'icon' => 'add_circle_outline',
-                'href' => $this->generateUrl('ps_demodoctrine_form_generate'),
+                'href' => $this->generateUrl('ps_FormGenerator_form_generate'),
             ],
         ];
     }

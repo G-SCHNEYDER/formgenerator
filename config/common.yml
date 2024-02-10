@@ -1,13 +1,13 @@
 services:
-    prestashop.module.demodoctrine.repository.quote_repository:
-        class: Module\DemoDoctrine\Repository\QuoteRepository
+    prestashop.module.FormGenerator.repository.form_repository:
+        class: Module\FormGenerator\Repository\FormRepository
         public: true
         factory: ['@doctrine.orm.default_entity_manager', getRepository]
         arguments:
-            - Module\DemoDoctrine\Entity\Quote
+            - Module\FormGenerator\Entity\Form
 
-    prestashop.module.demodoctrine.quotes.install:
-        class: Module\DemoDoctrine\Database\QuoteInstaller
+    prestashop.module.FormGenerator.forms.install:
+        class: Module\FormGenerator\Database\FormInstaller
         arguments:
             - '@doctrine.dbal.default_connection'
             - '%database_prefix%'

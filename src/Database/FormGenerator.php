@@ -9,12 +9,12 @@
  */
 declare(strict_types=1);
 
-namespace Module\DemoDoctrine\Database;
+namespace Module\FormGenerator\Database;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Module\DemoDoctrine\Entity\Form;
-use Module\DemoDoctrine\Entity\FormLang;
-use Module\DemoDoctrine\Repository\FormRepository;
+use Module\FormGenerator\Entity\Form;
+use Module\FormGenerator\Entity\FormLang;
+use Module\FormGenerator\Repository\FormRepository;
 use PrestaShopBundle\Entity\Lang;
 use PrestaShopBundle\Entity\Repository\LangRepository;
 

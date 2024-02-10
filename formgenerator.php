@@ -9,7 +9,7 @@
  */
 declare(strict_types=1);
 
-use Module\DemoDoctrine\Database\QuoteInstaller;
+use Module\FormGenerator\Database\FormInstaller;
 
 if (!defined('_PS_VERSION_')) {
     exit;
@@ -19,11 +19,11 @@ if (file_exists(__DIR__.'/vendor/autoload.php')) {
     require_once __DIR__.'/vendor/autoload.php';
 }
 
-class DemoDoctrine extends Module
+class FormGenerator extends Module
 {
     public function __construct()
     {
-        $this->name = 'prestashop-module-form-generator';
+        $this->name = 'formgenerator';
         $this->author = 'G-SCHNEYDER';
         $this->version = '1.0.0';
         $this->ps_versions_compliancy = ['min' => '1.7.7', 'max' => '8.99.99'];
@@ -47,19 +47,19 @@ class DemoDoctrine extends Module
     public function getContent()
     {
         Tools::redirectAdmin(
-            $this->context->link->getAdminLink('AdminDemodoctrineQuote')
+            $this->context->link->getAdminLink('AdminFormGeneratorForm')
         );
     }
 
     public function hookDisplayHome()
     {
-        $repository = $this->get('prestashop.module.demodoctrine.repository.quote_repository');
+        $repository = $this->get('prestashop.module.FormGenerator.repository.form_repository');
         $langId = $this->context->language->id;
-        $quotes = $repository->getRandom($langId, 3);
+        $forms = $repository->getRandom($langId, 3);
 
-        $this->smarty->assign(['quotes' => $quotes]);
+        $this->smarty->assign(['forms' => $forms]);
 
-        return $this->fetch('module:demodoctrine/views/templates/front/home.tpl');
+        return $this->fetch('module:FormGenerator/views/templates/front/home.tpl');
     }
 
     /**
@@ -67,7 +67,7 @@ class DemoDoctrine extends Module
      */
     private function installTables()
     {
-        /** @var QuoteInstaller $installer */
+        /** @var FormInstaller $installer */
         $installer = $this->getInstaller();
         $errors = $installer->createTables();
 
@@ -79,7 +79,7 @@ class DemoDoctrine extends Module
      */
     private function removeTables()
     {
-        /** @var QuoteInstaller $installer */
+        /** @var FormInstaller $installer */
         $installer = $this->getInstaller();
         $errors = $installer->dropTables();
 
@@ -87,12 +87,12 @@ class DemoDoctrine extends Module
     }
 
     /**
-     * @return QuoteInstaller
+     * @return FormInstaller
      */
     private function getInstaller()
     {
         try {
-            $installer = $this->get('prestashop.module.demodoctrine.quotes.install');
+            $installer = $this->get('prestashop.module.FormGenerator.forms.install');
         } catch (Exception $e) {
             // Catch exception in case container is not available, or service is not available
             $installer = null;
@@ -100,7 +100,7 @@ class DemoDoctrine extends Module
 
         // During install process the modules's service is not available yet so we build it manually
         if (!$installer) {
-            $installer = new QuoteInstaller(
+            $installer = new FormInstaller(
                 $this->get('doctrine.dbal.default_connection'),
                 $this->getContainer()->getParameter('database_prefix')
             );

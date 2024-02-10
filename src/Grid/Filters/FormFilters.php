@@ -9,14 +9,14 @@
  */
 declare(strict_types=1);
 
-namespace Module\DemoDoctrine\Grid\Filters;
+namespace Module\FormGenerator\Grid\Filters;
 
-use Module\DemoDoctrine\Grid\Definition\Factory\QuoteGridDefinitionFactory;
+use Module\FormGenerator\Grid\Definition\Factory\FormGridDefinitionFactory;
 use PrestaShop\PrestaShop\Core\Search\Filters;
 
-class QuoteFilters extends Filters
+class FormFilters extends Filters
 {
-    protected $filterId = QuoteGridDefinitionFactory::GRID_ID;
+    protected $filterId = FormGridDefinitionFactory::GRID_ID;
 
     /**
      * {@inheritdoc}
@@ -26,7 +26,7 @@ class QuoteFilters extends Filters
         return [
             'limit' => 10,
             'offset' => 0,
-            'orderBy' => 'id_quote',
+            'orderBy' => 'id_form',
             'sortOrder' => 'asc',
             'filters' => [],
         ];
