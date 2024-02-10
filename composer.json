@@ -2,7 +2,7 @@
     "name": "cryot/prestashop-module-form-generator",
     "autoload": {
         "psr-4": {
-          "Module\\DemoDoctrine\\": "src/"
+          "Module\\FormGenerator\\": "src/"
         },
         "config": {
           "prepend-autoloader": false
